@@ -2,12 +2,10 @@ package com.tidii.optimusapi.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "tb_districts")
-public class District implements Serializable {
+@Table(name = "tb_streets")
+public class Street implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,11 +16,20 @@ public class District implements Serializable {
     private String info;
     private Boolean situation;
 
-    @OneToMany(mappedBy = "district")
-    private List<Street> streets = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "district_id")
+    private District district;
 
-    public District() {
+    public Street () {
 
+    }
+
+    public Street(Long id, String name, String info, Boolean situation, District district) {
+        this.id = id;
+        this.name = name;
+        this.info = info;
+        this.situation = situation;
+        this.district = district;
     }
 
     public Long getId() {
@@ -57,11 +64,11 @@ public class District implements Serializable {
         this.situation = situation;
     }
 
-    public List<Street> getStreets() {
-        return streets;
+    public District getDistrict() {
+        return district;
     }
 
-    public void setStreets(List<Street> streets) {
-        this.streets = streets;
+    public void setDistrict(District district) {
+        this.district = district;
     }
 }
