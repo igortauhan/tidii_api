@@ -1,5 +1,8 @@
 package com.tidii.optimusapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,13 +19,21 @@ public class District implements Serializable {
     private Long id;
     private String name;
     private String info;
-    private Boolean situation;
+    private Boolean isLeaking;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "district")
     private List<Street> streets = new ArrayList<>();
 
     public District() {
 
+    }
+
+    public District(Long id, String name, String info, Boolean isLeaking) {
+        this.id = id;
+        this.name = name;
+        this.info = info;
+        this.isLeaking = isLeaking;
     }
 
     public Long getId() {
@@ -49,12 +60,12 @@ public class District implements Serializable {
         this.info = info;
     }
 
-    public Boolean getSituation() {
-        return situation;
+    public Boolean getIsLeaking() {
+        return isLeaking;
     }
 
-    public void setSituation(Boolean situation) {
-        this.situation = situation;
+    public void setIsLeaking(Boolean isLeaking) {
+        this.isLeaking = isLeaking;
     }
 
     public List<Street> getStreets() {

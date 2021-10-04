@@ -1,5 +1,9 @@
 package com.tidii.optimusapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,8 +18,9 @@ public class Street implements Serializable {
     private Long id;
     private String name;
     private String info;
-    private Boolean situation;
+    private Boolean isLeaking;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "district_id")
     private District district;
@@ -24,11 +29,11 @@ public class Street implements Serializable {
 
     }
 
-    public Street(Long id, String name, String info, Boolean situation, District district) {
+    public Street(Long id, String name, String info, Boolean isLeaking, District district) {
         this.id = id;
         this.name = name;
         this.info = info;
-        this.situation = situation;
+        this.isLeaking = isLeaking;
         this.district = district;
     }
 
@@ -56,12 +61,12 @@ public class Street implements Serializable {
         this.info = info;
     }
 
-    public Boolean getSituation() {
-        return situation;
+    public Boolean getIsLeaking() {
+        return isLeaking;
     }
 
-    public void setSituation(Boolean situation) {
-        this.situation = situation;
+    public void setIsLeaking(Boolean isLeaking) {
+        this.isLeaking = isLeaking;
     }
 
     public District getDistrict() {
