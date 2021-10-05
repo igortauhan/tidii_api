@@ -30,4 +30,12 @@ public class DistrictController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody DistrictDTO objDto) {
+        District obj = districtService.fromDTO(objDto);
+        obj.setId(id);
+        obj = districtService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
 }

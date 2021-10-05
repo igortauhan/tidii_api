@@ -28,9 +28,23 @@ public class DistrictService {
         return obj;
     }
 
-    // Utils
     @Transactional
+    public District update(District obj) {
+        District newObj = districtRepository.getById(obj.getId());
+        updateData(newObj, obj);
+        newObj = districtRepository.save(newObj);
+        return newObj;
+    }
+
+    // Utils
     public District fromDTO(DistrictDTO objDto) {
-        return new District(null, objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation());
+        return new District(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation());
+    }
+
+    public void updateData(District newObj, District obj) {
+        newObj.setId(obj.getId());
+        newObj.setName(obj.getName());
+        newObj.setInfo(obj.getInfo());
+        newObj.setIsLeaking(obj.getIsLeaking());
     }
 }
