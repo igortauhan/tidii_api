@@ -1,13 +1,14 @@
 package com.tidii.optimusapi.controllers;
 
+import com.tidii.optimusapi.dto.DistrictDTO;
 import com.tidii.optimusapi.entities.District;
 import com.tidii.optimusapi.services.DistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/districts")
@@ -22,4 +23,11 @@ public class DistrictController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @PostMapping
+    public ResponseEntity<Void> insert(@RequestBody DistrictDTO objDto) {
+        District obj = districtService.fromDTO(objDto);
+        obj = districtService.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
 }
