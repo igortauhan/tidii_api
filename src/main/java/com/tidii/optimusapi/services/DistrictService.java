@@ -2,6 +2,7 @@ package com.tidii.optimusapi.services;
 
 import com.tidii.optimusapi.dto.DistrictDTO;
 import com.tidii.optimusapi.entities.District;
+import com.tidii.optimusapi.entities.Street;
 import com.tidii.optimusapi.repositories.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,17 @@ public class DistrictService {
     }
 
     // Utils
+    @Transactional
+    public void addStreet(District district, Street street) {
+        if (street.getIsLeaking()) {
+            district.setIsLeaking(true);
+            district.setInfo("Leak detected");
+        }
+
+        district.getStreets().add(street);
+        districtRepository.save(district);
+    }
+
     public District fromDTO(DistrictDTO objDto) {
         return new District(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation());
     }
