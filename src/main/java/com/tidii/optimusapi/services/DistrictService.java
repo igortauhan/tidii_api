@@ -55,15 +55,6 @@ public class DistrictService {
         districtRepository.save(district);
     }
 
-    @Transactional
-    public void setInfoAndLeaking(District district, Street street) {
-        if (street.getIsLeaking()) {
-            district.setIsLeaking(true);
-            district.setInfo("Leak detected");
-        }
-        districtRepository.save(district);
-    }
-
     public District fromDTO(DistrictDTO objDto) {
         return new District(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation());
     }

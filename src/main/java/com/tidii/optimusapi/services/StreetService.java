@@ -46,7 +46,13 @@ public class StreetService {
         updateData(newObj, obj);
 
         District district = districtService.find(newObj.getDistrict().getId());
-        districtService.setInfoAndLeaking(district, newObj);
+
+        if (newObj.getIsLeaking()) {
+            district.setIsLeaking(true);
+            district.setInfo("Leak detected");
+        }
+
+        districtService.update(district);
 
         newObj = streetRepository.save(newObj);
         return newObj;
