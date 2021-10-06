@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,11 @@ public class DistrictService {
     private DistrictRepository districtRepository;
 
     // CRUD operations
+    @Transactional
+    public List<District> findAll() {
+        return districtRepository.findAll();
+    }
+
     public District find(Long id) {
         Optional<District> obj = districtRepository.findById(id);
         return obj.orElse(null);

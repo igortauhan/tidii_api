@@ -1,5 +1,7 @@
 package com.tidii.optimusapi.dto;
 
+import com.tidii.optimusapi.entities.District;
+
 import java.io.Serializable;
 
 public class DistrictDTO implements Serializable {
@@ -15,11 +17,11 @@ public class DistrictDTO implements Serializable {
 
     }
 
-    public DistrictDTO(Long id, String name, String info, Boolean leakingSituation) {
-        this.id = id;
-        this.name = name;
-        this.info = info;
-        this.leakingSituation = leakingSituation;
+    public DistrictDTO(District obj) {
+        id = obj.getId();
+        name = obj.getName();
+        info = obj.getInfo();
+        leakingSituation = obj.getIsLeaking();
     }
 
     public Long getId() {
