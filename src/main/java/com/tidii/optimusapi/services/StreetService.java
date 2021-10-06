@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,11 @@ public class StreetService {
     private DistrictService districtService;
 
     // CRUD operations
+    @Transactional
+    public List<Street> findAll() {
+        return streetRepository.findAll();
+    }
+
     public Street find(Long id) {
         Optional<Street> obj = streetRepository.findById(id);
         return obj.orElse(null);

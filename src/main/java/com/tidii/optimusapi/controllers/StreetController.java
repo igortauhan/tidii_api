@@ -1,6 +1,7 @@
 package com.tidii.optimusapi.controllers;
 
 import com.tidii.optimusapi.dto.StreetDTO;
+import com.tidii.optimusapi.dto.StreetNewDTO;
 import com.tidii.optimusapi.entities.District;
 import com.tidii.optimusapi.entities.Street;
 import com.tidii.optimusapi.services.StreetService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/streets")
@@ -17,6 +20,13 @@ public class StreetController {
 
     @Autowired
     private StreetService streetService;
+
+    @GetMapping
+    public ResponseEntity<List<StreetNewDTO>> findAll() {
+        List<Street> list = streetService.findAll();
+        List<StreetNewDTO> listDto = list.stream().map(obj -> new StreetNewDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Street> find(@PathVariable Long id) {
