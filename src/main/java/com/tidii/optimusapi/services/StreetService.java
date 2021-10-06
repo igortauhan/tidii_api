@@ -4,6 +4,7 @@ import com.tidii.optimusapi.dto.StreetDTO;
 import com.tidii.optimusapi.entities.District;
 import com.tidii.optimusapi.entities.Street;
 import com.tidii.optimusapi.repositories.StreetRepository;
+import com.tidii.optimusapi.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +27,12 @@ public class StreetService {
         return streetRepository.findAll();
     }
 
+    @Transactional
     public Street find(Long id) {
         Optional<Street> obj = streetRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(
+                () -> new ObjectNotFoundException("Object not found! Id: " + id + ", Type: " + Street.class.getName())
+        );
     }
 
     @Transactional

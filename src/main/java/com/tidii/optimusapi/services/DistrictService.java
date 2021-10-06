@@ -4,6 +4,7 @@ import com.tidii.optimusapi.dto.DistrictDTO;
 import com.tidii.optimusapi.entities.District;
 import com.tidii.optimusapi.entities.Street;
 import com.tidii.optimusapi.repositories.DistrictRepository;
+import com.tidii.optimusapi.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +24,12 @@ public class DistrictService {
         return districtRepository.findAll();
     }
 
+    @Transactional
     public District find(Long id) {
         Optional<District> obj = districtRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(
+                () -> new ObjectNotFoundException("Object not found! Id: " + id + ", Type: " + District.class.getName())
+        );
     }
 
     @Transactional
@@ -46,11 +50,6 @@ public class DistrictService {
     // Utils
     @Transactional
     public void addStreet(District district, Street street) {
-        /*if (street.getIsLeaking()) {
-            district.setIsLeaking(true);
-            district.setInfo("Leak detected");
-        }*/
-
         district.getStreets().add(street);
         changeInfoByLeaking(district);
         districtRepository.save(district);
