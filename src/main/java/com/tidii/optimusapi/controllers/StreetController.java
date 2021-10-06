@@ -35,4 +35,12 @@ public class StreetController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody StreetDTO objDto) {
+        Street obj = streetService.fromDto(objDto);
+        obj.setId(id);
+        obj = streetService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
 }

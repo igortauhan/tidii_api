@@ -19,6 +19,7 @@ public class StreetService {
     @Autowired
     private DistrictService districtService;
 
+    // CRUD operations
     public Street find(Long id) {
         Optional<Street> obj = streetRepository.findById(id);
         return obj.orElse(null);
@@ -33,9 +34,32 @@ public class StreetService {
         return obj;
     }
 
+    @Transactional
+    public Street update(Street obj) {
+        Street newObj = find(obj.getId());
+        updateData(newObj, obj);
+
+        District district = districtService.find(newObj.getDistrict().getId());
+        districtService.setInfoAndLeaking(district, newObj);
+
+        newObj = streetRepository.save(newObj);
+        return newObj;
+    }
+
     // Utils
+    public void updateData(Street newObj, Street obj) {
+        newObj.setId(obj.getId());
+        newObj.setName(obj.getName());
+        newObj.setInfo(obj.getInfo());
+        newObj.setIsLeaking(obj.getIsLeaking());
+    }
+
     public Street fromDto(StreetDTO objDto, District district) {
         return new Street(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation(), district);
+    }
+
+    public Street fromDto(StreetDTO objDto) {
+        return new Street(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation());
     }
 
     @Transactional(readOnly = true)

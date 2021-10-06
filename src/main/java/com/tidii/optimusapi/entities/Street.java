@@ -27,6 +27,13 @@ public class Street implements Serializable {
 
     }
 
+    public Street(Long id, String name, String info, Boolean isLeaking) {
+        this.id = id;
+        this.name = name;
+        this.info = info;
+        this.isLeaking = isLeaking;
+    }
+
     public Street(Long id, String name, String info, Boolean isLeaking, District district) {
         this.id = id;
         this.name = name;

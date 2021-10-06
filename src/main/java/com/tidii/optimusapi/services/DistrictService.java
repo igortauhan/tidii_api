@@ -31,7 +31,7 @@ public class DistrictService {
 
     @Transactional
     public District update(District obj) {
-        District newObj = districtRepository.getById(obj.getId());
+        District newObj = find(obj.getId());
         updateData(newObj, obj);
         newObj = districtRepository.save(newObj);
         return newObj;
@@ -46,6 +46,15 @@ public class DistrictService {
         }
 
         district.getStreets().add(street);
+        districtRepository.save(district);
+    }
+
+    @Transactional
+    public void setInfoAndLeaking(District district, Street street) {
+        if (street.getIsLeaking()) {
+            district.setIsLeaking(true);
+            district.setInfo("Leak detected");
+        }
         districtRepository.save(district);
     }
 
