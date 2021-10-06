@@ -46,13 +46,29 @@ public class DistrictService {
     // Utils
     @Transactional
     public void addStreet(District district, Street street) {
-        if (street.getIsLeaking()) {
+        /*if (street.getIsLeaking()) {
             district.setIsLeaking(true);
             district.setInfo("Leak detected");
-        }
+        }*/
 
         district.getStreets().add(street);
+        changeInfoByLeaking(district);
         districtRepository.save(district);
+    }
+
+    public void changeInfoByLeaking(District district) {
+        for (Street street:
+             district.getStreets()) {
+            if (street.getIsLeaking()) {
+                district.setIsLeaking(true);
+                district.setInfo("Leak detected");
+            }
+            else {
+                district.setIsLeaking(false);
+                district.setInfo("Normal activity");
+            }
+        }
+        district = update(district);
     }
 
     public District fromDTO(DistrictDTO objDto) {
