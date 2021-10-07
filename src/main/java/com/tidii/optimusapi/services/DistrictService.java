@@ -56,16 +56,21 @@ public class DistrictService {
     }
 
     public void changeInfoByLeaking(District district) {
+        boolean flag = false;
         for (Street street:
              district.getStreets()) {
             if (street.getIsLeaking()) {
-                district.setIsLeaking(true);
-                district.setInfo("Leak detected");
+                flag = true;
+                break;
             }
-            else {
-                district.setIsLeaking(false);
-                district.setInfo("Normal activity");
-            }
+        }
+        if (flag) {
+            district.setIsLeaking(true);
+            district.setInfo("Leak detected");
+        }
+        else {
+            district.setIsLeaking(false);
+            district.setInfo("Normal activity");
         }
         district = update(district);
     }

@@ -48,11 +48,10 @@ public class StreetService {
     public Street update(Street obj) {
         Street newObj = find(obj.getId());
         updateData(newObj, obj);
+        newObj = streetRepository.save(newObj);
 
         District district = districtService.find(newObj.getDistrict().getId());
         districtService.changeInfoByLeaking(district);
-
-        newObj = streetRepository.save(newObj);
         return newObj;
     }
 
