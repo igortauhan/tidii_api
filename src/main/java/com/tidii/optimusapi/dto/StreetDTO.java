@@ -1,5 +1,9 @@
 package com.tidii.optimusapi.dto;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class StreetDTO implements Serializable {
@@ -7,10 +11,18 @@ public class StreetDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @NotEmpty(message = "Required field")
+    @Length(max = 100, message = "Max 100 characters")
     private String name;
+
+    @NotEmpty(message = "Required field!")
     private String info;
+
+    @NotNull(message = "Required field!")
     private Boolean leakingSituation;
 
+    @NotNull(message = "Required field")
     private Long districtId;
 
     public StreetDTO() {

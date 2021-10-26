@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class StreetController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody StreetDTO objDto) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody StreetDTO objDto) {
         Long districtId = objDto.getDistrictId();
         District district = streetService.getDistrictById(districtId);
 
@@ -47,7 +48,7 @@ public class StreetController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody StreetDTO objDto) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody StreetDTO objDto) {
         Street obj = streetService.fromDto(objDto);
         obj.setId(id);
         obj = streetService.update(obj);
