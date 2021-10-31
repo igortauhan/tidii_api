@@ -29,6 +29,13 @@ public class StreetController {
         return ResponseEntity.ok().body(listDto);
     }
 
+    @GetMapping(value = "/district/{districtId}")
+    public ResponseEntity<List<StreetNewDTO>> findAllStreetsByDistrict(@PathVariable Long districtId) {
+        List<Street> list = streetService.findAllStreetsByDistrict(districtId);
+        List<StreetNewDTO> listDto = list.stream().map(obj -> new StreetNewDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Street> find(@PathVariable Long id) {
         Street obj = streetService.find(id);

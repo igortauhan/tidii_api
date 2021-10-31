@@ -28,6 +28,12 @@ public class StreetService {
     }
 
     @Transactional
+    public List<Street> findAllStreetsByDistrict(Long districtId) {
+        District district = districtService.find(districtId);
+        return district.getStreets();
+    }
+
+    @Transactional
     public Street find(Long id) {
         Optional<Street> obj = streetRepository.findById(id);
         return obj.orElseThrow(
