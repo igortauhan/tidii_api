@@ -59,13 +59,13 @@ public class DistrictService {
         for (Street street : district.getStreets()) {
             if (street.getIsLeaking()) {
                 district.setIsLeaking(true);
-                district.setInfo("Leak detected");
+                district.setInfo("Vazamento detectado");
                 return;
             }
         }
 
         district.setIsLeaking(false);
-        district.setInfo("Normal activity");
+        district.setInfo("Atividade normal");
         district = update(district);
     }
 
