@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 public class StreetDTO implements Serializable {
 
@@ -24,6 +25,8 @@ public class StreetDTO implements Serializable {
 
     @NotNull(message = "Required field")
     private Long districtId;
+
+    private Date leakingDate;
 
     public StreetDTO() {
 
@@ -75,5 +78,13 @@ public class StreetDTO implements Serializable {
 
     public void setDistrictId(Long districtId) {
         this.districtId = districtId;
+    }
+
+    public Date getLeakingDate() {
+        return leakingDate;
+    }
+
+    public void setLeakingDate(Date leakingDate) {
+        this.leakingDate = leakingDate;
     }
 }

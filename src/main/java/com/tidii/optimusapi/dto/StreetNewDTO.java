@@ -1,8 +1,10 @@
 package com.tidii.optimusapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tidii.optimusapi.entities.Street;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class StreetNewDTO implements Serializable {
 
@@ -13,6 +15,9 @@ public class StreetNewDTO implements Serializable {
     private String info;
     private Boolean leakingSituation;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date leakingDate;
+
     public StreetNewDTO() {
 
     }
@@ -22,6 +27,7 @@ public class StreetNewDTO implements Serializable {
         name = obj.getName();
         info = obj.getInfo();
         leakingSituation = obj.getIsLeaking();
+        leakingDate = obj.getLeakingDate();
     }
 
     public Long getId() {
@@ -54,5 +60,13 @@ public class StreetNewDTO implements Serializable {
 
     public void setLeakingSituation(Boolean leakingSituation) {
         this.leakingSituation = leakingSituation;
+    }
+
+    public Date getLeakingDate() {
+        return leakingDate;
+    }
+
+    public void setLeakingDate(Date leakingDate) {
+        this.leakingDate = leakingDate;
     }
 }

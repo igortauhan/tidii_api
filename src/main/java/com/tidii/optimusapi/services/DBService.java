@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 @Service
 public class DBService {
@@ -20,6 +22,8 @@ public class DBService {
     private StreetRepository streetRepository;
 
     public void instantiateDatabase() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
         District district1 = new District(null, "Centro", "Atividade normal", false);
         District district2 = new District(null, "Outro lado", "Atividade normal", false);
         District district3 = new District(null, "Bairro de cima", "Vazamento detectado", true);
@@ -28,23 +32,23 @@ public class DBService {
         District district6 = new District(null, "Bairro Leste", "Vazamento detectado", true);
 
         // 1
-        Street street1 = new Street(null, "Rua 1", "Atividade normal", false, district1);
-        Street street2 = new Street(null, "Rua 2", "Atividade normal", false, district1);
+        Street street1 = new Street(null, "Rua 1", "Atividade normal", false, new Date(0), district1);
+        Street street2 = new Street(null, "Rua 2", "Atividade normal", false, new Date(0), district1);
         // 2
-        Street street3 = new Street(null, "Rua Principal", "Atividade normal", false, district2);
-        Street street4 = new Street(null, "Rua Secundaria", "Atividade normal", false, district2);
+        Street street3 = new Street(null, "Rua Principal", "Atividade normal", false, new Date(0), district2);
+        Street street4 = new Street(null, "Rua Secundaria", "Atividade normal", false, new Date(0), district2);
         // 3
-        Street street5 = new Street(null, "Avenida Brasil", "Atividade normal", false, district3);
-        Street street6 = new Street(null, "Avenida Dois", "Vazamento detectado", true, district3);
+        Street street5 = new Street(null, "Avenida Brasil", "Atividade normal", false, new Date(0), district3);
+        Street street6 = new Street(null, "Avenida Dois", "Vazamento detectado", true, sdf.parse("08/11/2021 19:32"), district3);
         // 4
-        Street street7 = new Street(null, "Avenida de Cima", "Atividade normal", false, district4);
-        Street street8 = new Street(null, "Rua D Pedro", "Atividade normal", false, district4);
+        Street street7 = new Street(null, "Avenida de Cima", "Atividade normal", false, new Date(0), district4);
+        Street street8 = new Street(null, "Rua D Pedro", "Atividade normal", false, new Date(0), district4);
         // 5
-        Street street9 = new Street(null, "Rua D Pedro II", "Atividade normal", false, district5);
-        Street street10 = new Street(null, "Avenida Oliveira", "Atividade normal", false, district5);
+        Street street9 = new Street(null, "Rua D Pedro II", "Atividade normal", false, new Date(0), district5);
+        Street street10 = new Street(null, "Avenida Oliveira", "Atividade normal", false, new Date(0), district5);
         // 6
-        Street street11 = new Street(null, "Avenida Simples", "Vazamento detectado", true, district6);
-        Street street12 = new Street(null, "Rua Campos", "Atividade normal", false, district6);
+        Street street11 = new Street(null, "Avenida Simples", "Vazamento detectado", true, sdf.parse("10/11/2021 07:15"), district6);
+        Street street12 = new Street(null, "Rua Campos", "Atividade normal", false, new Date(0), district6);
 
         district1.setStreets(Arrays.asList(street1, street2));
         district2.setStreets(Arrays.asList(street3, street4));

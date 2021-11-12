@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,10 @@ public class StreetService {
     @Transactional
     public Street insert(Street obj) {
         obj.setId(null);
+
+        // Set date to 1/1/1970 00:00 for not return null
+        obj.setLeakingDate(new Date(0));
+
         District district = districtService.find(obj.getDistrict().getId());
         districtService.addStreet(district, obj);
         obj = streetRepository.save(obj);
@@ -54,6 +59,15 @@ public class StreetService {
     public Street update(Street obj) {
         Street newObj = find(obj.getId());
         updateData(newObj, obj);
+
+        if (newObj.getIsLeaking()) {
+            newObj.setLeakingDate(new Date());
+        }
+        else {
+            // Set date to 1/1/1970 00:00 for not return null
+            newObj.setLeakingDate(new Date(0));
+        }
+
         newObj = streetRepository.save(newObj);
 
         District district = districtService.find(newObj.getDistrict().getId());
@@ -70,7 +84,7 @@ public class StreetService {
     }
 
     public Street fromDto(StreetDTO objDto, District district) {
-        return new Street(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation(), district);
+        return new Street(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation(), objDto.getLeakingDate(), district);
     }
 
     public Street fromDto(StreetDTO objDto) {

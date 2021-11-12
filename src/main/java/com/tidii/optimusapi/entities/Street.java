@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_streets")
@@ -17,6 +18,7 @@ public class Street implements Serializable {
     private String name;
     private String info;
     private Boolean isLeaking;
+    private Date leakingDate;
 
     @JsonBackReference
     @ManyToOne
@@ -34,11 +36,12 @@ public class Street implements Serializable {
         this.isLeaking = isLeaking;
     }
 
-    public Street(Long id, String name, String info, Boolean isLeaking, District district) {
+    public Street(Long id, String name, String info, Boolean isLeaking,  Date leakingDate, District district) {
         this.id = id;
         this.name = name;
         this.info = info;
         this.isLeaking = isLeaking;
+        this.leakingDate = leakingDate;
         this.district = district;
     }
 
@@ -80,5 +83,13 @@ public class Street implements Serializable {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public Date getLeakingDate() {
+        return leakingDate;
+    }
+
+    public void setLeakingDate(Date leakingDate) {
+        this.leakingDate = leakingDate;
     }
 }
