@@ -32,6 +32,18 @@ public class DistrictService {
         );
     }
 
+    public District findDistrictByNameIgnoreCase(String name) {
+        Optional<District> obj = districtRepository.findDistrictByNameIgnoreCase(name);
+        return obj.orElseThrow(
+                () -> new ObjectNotFoundException(
+                                "Object not found! Name: " +
+                                name +
+                                ", Type: " +
+                                District.class.getName()
+                )
+        );
+    }
+
     @Transactional
     public District insert(District obj) {
         obj.setId(null);

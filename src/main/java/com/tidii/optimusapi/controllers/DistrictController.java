@@ -33,6 +33,12 @@ public class DistrictController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @GetMapping(value = "/name/{name}")
+    public ResponseEntity<District> findDistrictByNameIgnoreCase(@PathVariable String name) {
+        District obj = districtService.findDistrictByNameIgnoreCase(name);
+        return ResponseEntity.ok().body(obj);
+    }
+
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody DistrictDTO objDto) {
         District obj = districtService.fromDTO(objDto);

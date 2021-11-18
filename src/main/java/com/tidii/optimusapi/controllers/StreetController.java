@@ -42,6 +42,12 @@ public class StreetController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @GetMapping(value = "/name/{name}")
+    public ResponseEntity<Street> findStreetByNameIgnoreCase(@PathVariable String name) {
+        Street obj = streetService.findStreetByNameIgnoreCase(name);
+        return ResponseEntity.ok().body(obj);
+    }
+
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody StreetDTO objDto) {
         Long districtId = objDto.getDistrictId();

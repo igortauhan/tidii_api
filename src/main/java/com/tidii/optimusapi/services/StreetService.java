@@ -43,6 +43,19 @@ public class StreetService {
     }
 
     @Transactional
+    public Street findStreetByNameIgnoreCase(String name) {
+        Optional<Street> obj = streetRepository.findStreetByNameIgnoreCase(name);
+        return obj.orElseThrow(
+                () -> new ObjectNotFoundException(
+                                "Object not found! Name: " +
+                                name +
+                                ", Type: " +
+                                Street.class.getName()
+                )
+        );
+    }
+
+    @Transactional
     public Street insert(Street obj) {
         obj.setId(null);
 
@@ -62,8 +75,7 @@ public class StreetService {
 
         if (newObj.getIsLeaking()) {
             newObj.setLeakingDate(new Date());
-        }
-        else {
+        } else {
             // Set date to 1/1/1970 00:00 for not return null
             newObj.setLeakingDate(new Date(0));
         }
