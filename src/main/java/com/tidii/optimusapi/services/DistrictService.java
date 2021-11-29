@@ -36,7 +36,7 @@ public class DistrictService {
         Optional<District> obj = districtRepository.findDistrictByNameIgnoreCase(name);
         return obj.orElseThrow(
                 () -> new ObjectNotFoundException(
-                                "Object not found! Name: " +
+                        "Object not found! Name: " +
                                 name +
                                 ", Type: " +
                                 District.class.getName()
@@ -55,6 +55,7 @@ public class DistrictService {
     public District update(District obj) {
         District newObj = find(obj.getId());
         updateData(newObj, obj);
+        newObj = newObj.setInfo(newObj);
         newObj = districtRepository.save(newObj);
         return newObj;
     }
@@ -82,12 +83,14 @@ public class DistrictService {
     }
 
     public District fromDTO(DistrictDTO objDto) {
-        return new District(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation());
+        return new District(objDto.getId(), objDto.getName(), objDto.getLeakingSituation());
     }
 
     public void updateData(District newObj, District obj) {
         newObj.setId(obj.getId());
-        newObj.setName(obj.getName());
+        if (obj.getName() != null) {
+            newObj.setName(obj.getName());
+        }
         newObj.setInfo(obj.getInfo());
         newObj.setIsLeaking(obj.getIsLeaking());
     }

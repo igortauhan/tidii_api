@@ -29,14 +29,21 @@ public class Street implements Serializable {
 
     }
 
-    public Street(Long id, String name, String info, Boolean isLeaking) {
+    public Street(Long id, String name, Boolean isLeaking) {
         this.id = id;
         this.name = name;
-        this.info = info;
         this.isLeaking = isLeaking;
     }
 
-    public Street(Long id, String name, String info, Boolean isLeaking,  Date leakingDate, District district) {
+    public Street(Long id, String name, Boolean isLeaking, Date leakingDate, District district) {
+        this.id = id;
+        this.name = name;
+        this.isLeaking = isLeaking;
+        this.leakingDate = leakingDate;
+        this.district = district;
+    }
+
+    public Street(Long id, String name, String info, Boolean isLeaking, Date leakingDate, District district) {
         this.id = id;
         this.name = name;
         this.info = info;
@@ -67,6 +74,16 @@ public class Street implements Serializable {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Street setInfo(Street obj) {
+        if (obj.getIsLeaking() ) {
+            obj.setInfo("Vazamento detectado");
+            return obj;
+        }
+
+        obj.setInfo("Atividade normal");
+        return obj;
     }
 
     public Boolean getIsLeaking() {

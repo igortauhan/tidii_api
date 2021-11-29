@@ -28,6 +28,17 @@ public class District implements Serializable {
 
     }
 
+    public District(Long id, Boolean isLeaking) {
+        this.id = id;
+        this.isLeaking = isLeaking;
+    }
+
+    public District(Long id, String name, Boolean isLeaking) {
+        this.id = id;
+        this.name = name;
+        this.isLeaking = isLeaking;
+    }
+
     public District(Long id, String name, String info, Boolean isLeaking) {
         this.id = id;
         this.name = name;
@@ -59,6 +70,16 @@ public class District implements Serializable {
         this.info = info;
     }
 
+    public District setInfo(District obj) {
+        if (obj.getIsLeaking()) {
+            obj.setInfo("Vazamento detectado");
+            return obj;
+        }
+
+        obj.setInfo("Atividade normal");
+        return obj;
+    }
+
     public Boolean getIsLeaking() {
         return isLeaking;
     }
@@ -74,4 +95,5 @@ public class District implements Serializable {
     public void setStreets(List<Street> streets) {
         this.streets = streets;
     }
+
 }

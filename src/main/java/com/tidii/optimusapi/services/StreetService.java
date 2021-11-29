@@ -47,7 +47,7 @@ public class StreetService {
         Optional<Street> obj = streetRepository.findStreetByNameIgnoreCase(name);
         return obj.orElseThrow(
                 () -> new ObjectNotFoundException(
-                                "Object not found! Name: " +
+                        "Object not found! Name: " +
                                 name +
                                 ", Type: " +
                                 Street.class.getName()
@@ -80,6 +80,7 @@ public class StreetService {
             newObj.setLeakingDate(new Date(0));
         }
 
+        newObj = newObj.setInfo(newObj);
         newObj = streetRepository.save(newObj);
 
         District district = districtService.find(newObj.getDistrict().getId());
@@ -90,17 +91,19 @@ public class StreetService {
     // Utils
     public void updateData(Street newObj, Street obj) {
         newObj.setId(obj.getId());
-        newObj.setName(obj.getName());
+        if (obj.getName() != null) {
+            newObj.setName(obj.getName());
+        }
         newObj.setInfo(obj.getInfo());
         newObj.setIsLeaking(obj.getIsLeaking());
     }
 
     public Street fromDto(StreetDTO objDto, District district) {
-        return new Street(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation(), objDto.getLeakingDate(), district);
+        return new Street(objDto.getId(), objDto.getName(), objDto.getLeakingSituation(), objDto.getLeakingDate(), district);
     }
 
     public Street fromDto(StreetDTO objDto) {
-        return new Street(objDto.getId(), objDto.getName(), objDto.getInfo(), objDto.getLeakingSituation());
+        return new Street(objDto.getId(), objDto.getName(), objDto.getLeakingSituation());
     }
 
     @Transactional(readOnly = true)

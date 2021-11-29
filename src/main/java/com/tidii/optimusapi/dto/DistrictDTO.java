@@ -13,12 +13,8 @@ public class DistrictDTO implements Serializable {
 
     private Long id;
 
-    @NotEmpty(message = "Required field")
     @Length(max = 100, message = "Max 100 characters")
     private String name;
-
-    @NotEmpty(message = "Required field!")
-    private String info;
 
     @NotNull(message = "Required field")
     private Boolean leakingSituation;
@@ -30,7 +26,6 @@ public class DistrictDTO implements Serializable {
     public DistrictDTO(District obj) {
         id = obj.getId();
         name = obj.getName();
-        info = obj.getInfo();
         leakingSituation = obj.getIsLeaking();
     }
 
@@ -48,14 +43,6 @@ public class DistrictDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
     }
 
     public Boolean getLeakingSituation() {
