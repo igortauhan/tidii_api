@@ -1,6 +1,7 @@
 package com.tidii.optimusapi.controllers;
 
 import com.tidii.optimusapi.dto.DistrictDTO;
+import com.tidii.optimusapi.dto.DistrictNewDTO;
 import com.tidii.optimusapi.entities.District;
 import com.tidii.optimusapi.services.DistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ public class DistrictController {
     private DistrictService districtService;
 
     @GetMapping
-    public ResponseEntity<List<DistrictDTO>> findAll() {
+    public ResponseEntity<List<DistrictNewDTO>> findAll() {
         List<District> list = districtService.findAll();
-        List<DistrictDTO> listDto = list.stream().map(obj -> new DistrictDTO(obj)).collect(Collectors.toList());
+        List<DistrictNewDTO> listDto = list.stream().map(obj -> new DistrictNewDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
 
