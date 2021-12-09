@@ -34,4 +34,44 @@ To develop the project, i recommend comment the ***SPRING_DATASOURCE_URL*** line
 
 ## How the API works
 
-...
+This API contains endpoints for districts and streets. All endpoints related to districts contain the ***/districts*** signature and all endpoints related to streets contain the ***/streets*** signature.
+
+> The 8080 inside the URL is equal to the port that the API is running.
+
+***DISTRICTS***:
+
+***GET***
+
+URL = ***localhost:8080/distrcts*** -> GET = Return a JSON with all districts.
+
+URL = ***localhost:8080/distrcts/{id}*** -> GET = Return a JSON with a district related with the id.
+
+URL = ***localhost:8080/distrcts/name/{name}*** -> GET = Return a JSON with a district related with the name.
+
+***POST***
+
+URL = ***localhost:8080/distrcts*** -> POST = With the required fields inside the request body, insert a district.
+
+***PUT***
+
+URL = ***localhost:8080/distrcts/{id}*** -> PUT = With the required fields inside the request body, update a district related with the id.
+
+#
+
+***STREETS***
+
+***GET***
+
+URL = ***localhost:8080/streets*** -> GET = Return a JSON with all districts.
+
+URL = ***localhost:8080/streets/{id}*** -> GET = Return a JSON with a district related with the id.
+
+URL = ***localhost:8080/streets/name/{name}*** -> GET = Return a JSON with a district related with the name.
+
+***POST***
+
+URL = ***localhost:8080/streets*** -> POST = With the required fields inside the request body, insert a district.
+
+***PUT***
+
+URL = ***localhost:8080/streets/{id}*** -> PUT = With the required fields inside the request body, update a district related with the id.
