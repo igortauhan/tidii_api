@@ -62,16 +62,18 @@ URL = ***localhost:8080/distrcts/{id}*** -> PUT = With the required fields insid
 
 ***GET***
 
-URL = ***localhost:8080/streets*** -> GET = Return a JSON with all districts.
+URL = ***localhost:8080/streets*** -> GET = Return a JSON with all streets.
 
-URL = ***localhost:8080/streets/{id}*** -> GET = Return a JSON with a district related with the id.
+URL = ***localhost:8080/streets/district/{districtId}*** -> GET = Return a JSON with all streets related with the id.
 
-URL = ***localhost:8080/streets/name/{name}*** -> GET = Return a JSON with a district related with the name.
+URL = ***localhost:8080/streets/{id}*** -> GET = Return a JSON with a street related with the id.
+
+URL = ***localhost:8080/streets/name/{name}*** -> GET = Return a JSON with a street related with the name.
 
 ***POST***
 
-URL = ***localhost:8080/streets*** -> POST = With the required fields inside the request body, insert a district.
+URL = ***localhost:8080/streets*** -> POST = With the required fields inside the request body, insert a street.
 
 ***PUT***
 
-URL = ***localhost:8080/streets/{id}*** -> PUT = With the required fields inside the request body, update a district related with the id.
+URL = ***localhost:8080/streets/{id}*** -> PUT = With the required fields inside the request body, update a street related with the id.
