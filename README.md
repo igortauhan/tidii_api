@@ -2,7 +2,7 @@
 
 A Spring Boot API Rest for college work. This API is responsible for integrating and communicating an Arduino on the App.
 
-This API is used by my other project -> [TID II - APP](https://github.com/igortauh/tidii_app)
+This API is used by my other project -> [TID II - APP](https://github.com/taauhsz/tidii_app)
 
 ## How to run this project 
 
